@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Campus CleanTrack: a Design Thinking project on smart waste bin monitoring using Arduino.">
+<meta name="theme-color" content="#09090b">
+<title>Campus CleanTrack – Smart Waste Management System</title>
+<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  try {
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch(e) {}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Ambient Glow Elements -->
+<div class="ambient-glow glow-top" aria-hidden="true"></div>
+<div class="ambient-glow glow-hero" aria-hidden="true"></div>
+
+<!-- Site Header -->
+<header class="site-header">
+  <a class="logo" href="#home">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="logo-text">CleanTrack</span>
+    <span class="logo-sub">IoT Campus</span>
+  </a>
+  <nav id="nav" aria-label="Main Navigation">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#how">How It Works</a>
+    <a href="#components">Components</a>
+    <a href="#faq">FAQ</a>
+    <a href="#references">References</a>
+  </nav>
+  <div class="actions">
+    <button class="icon-btn" id="theme" aria-label="Switch to light mode" title="Toggle theme">
+      <span class="theme-icon" aria-hidden="true">☀</span>
+    </button>
+    <a class="pill light hide-s" href="#dashboard">Live Demo</a>
+    <button class="icon-btn menu-btn" aria-label="Toggle menu" aria-expanded="false">
+      <span class="menu-icon" aria-hidden="true">☰</span>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- Hero Section -->
+<section id="home" class="hero">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <svg class="star s1" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C54 30 70 46 100 50 70 54 54 70 50 100 46 70 30 54 0 50 30 46 46 30 50 0Z"/></svg>
+  <svg class="star s2" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C54 30 70 46 100 50 70 54 54 70 50 100 46 70 30 54 0 50 30 46 46 30 50 0Z"/></svg>
+  
+  <div class="hero-content">
+    <span class="badge-pill reveal">
+      <i class="status-pulse"></i> Design Thinking Project
+    </span>
+    <h1 class="grad reveal">Keep your campus<br>bins under control</h1>
+    <p class="lead reveal">Campus CleanTrack tells cleaning staff when a bin is almost full, so waste is collected on time.</p>
+    <div class="row reveal">
+      <a class="pill light" href="#dashboard">
+        <span>Try the Dashboard</span>
+        <svg class="pill-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="pill dark" href="#how">
+        <span>See How It Works</span>
+        <span class="arrow-glyph" aria-hidden="true">▸</span>
+      </a>
+    </div>
+    <p class="note reveal">Readings on this site are simulated. It is a prototype demo.</p>
+    <div class="strip reveal">
+      <span class="chip"><svg class="chip-ic" viewBox="0 0 16 16" width="12" height="12"><rect x="2" y="2" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>Arduino Uno</span>
+      <span class="chip"><svg class="chip-ic" viewBox="0 0 16 16" width="12" height="12"><circle cx="5" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>HC-SR04</span>
+      <span class="chip"><svg class="chip-ic" viewBox="0 0 16 16" width="12" height="12"><circle cx="8" cy="8" r="4" fill="currentColor"/></svg>LEDs</span>
+      <span class="chip"><svg class="chip-ic" viewBox="0 0 16 16" width="12" height="12"><path d="M4 6H2V10H4L8 13V3L4 6Z" fill="currentColor"/><path d="M11 6C11.5 6.6 11.8 7.3 11.8 8C11.8 8.7 11.5 9.4 11 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Buzzer</span>
+      <span class="chip"><svg class="chip-ic" viewBox="0 0 16 16" width="12" height="12"><line x1="1" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2"/></svg>Resistors</span>
+      <span class="chip"><svg class="chip-ic" viewBox="0 0 16 16" width="12" height="12"><rect x="1" y="3" width="14" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="6" x2="4" y2="10" stroke="currentColor"/><line x1="8" y1="6" x2="8" y2="10" stroke="currentColor"/><line x1="12" y1="6" x2="12" y2="10" stroke="currentColor"/></svg>Breadboard</span>
+    </div>
+  </div>
+</section>
+
+<!-- Problem Section -->
+<section id="problem">
+  <div class="section-header">
+    <span class="badge-pill reveal">The Problem</span>
+    <h2 class="grad reveal">Full bins cause<br>real trouble</h2>
+    <p class="sub reveal">Bins in corridors, canteens and hostels can fill up before anyone notices.</p>
+  </div>
+  <div class="bento">
+    <article class="card wide reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 6L5 6M10 11V17M14 11V17M6 6L7 20C7 20.6 7.4 21 8 21H16C16.6 21 17 20.6 17 20L18 6M9 6V4C9 3.4 9.4 3 10 3H14C14.6 3 15 3.4 15 4V6"/></svg>
+      </div>
+      <h3>Overflowing bins</h3>
+      <p>Waste spills out, smells bad and attracts pests.</p>
+    </article>
+    <article class="card reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6V12L16 14"/></svg>
+      </div>
+      <h3>Fixed rounds</h3>
+      <p>Staff clean on a schedule. Some bins are half empty, others are overflowing.</p>
+    </article>
+    <article class="card reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3H8L2 12L8 21H16L22 12L16 3Z"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+      </div>
+      <h3>Mixed waste</h3>
+      <p>When bins are full, people leave waste nearby or use the wrong bin.</p>
+    </article>
+    <article class="card wide reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3>No early warning</h3>
+      <p>Nobody knows a bin is nearly full until it is too late.</p>
+    </article>
+  </div>
+</section>
+
+<!-- Solution Section -->
+<section id="solution">
+  <div class="section-header">
+    <span class="badge-pill reveal">Solution</span>
+    <h2 class="grad reveal">A simple smart bin<br>that gives early alerts</h2>
+    <p class="sub reveal">An ultrasonic sensor measures how full each bin is. An Arduino shows the status with LEDs, and a buzzer sounds at 80%.</p>
+  </div>
+  <div class="bento two">
+    <article class="card reveal spotlight-card">
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Objectives</h3>
+      </div>
+      <ul class="fancy-list">
+        <li>Monitor the fill level of wet and dry bins.</li>
+        <li>Warn staff at 80% capacity.</li>
+        <li>Reduce overflow and bad smell.</li>
+        <li>Build a low-cost prototype.</li>
+      </ul>
+    </article>
+    <article class="card reveal spotlight-card">
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>Benefits</h3>
+      </div>
+      <ul class="fancy-list">
+        <li>Bins are emptied when needed.</li>
+        <li>A cleaner, more hygienic campus.</li>
+        <li>Better use of staff time.</li>
+        <li>Easy to understand and expand.</li>
+      </ul>
+    </article>
+  </div>
+  <div class="glance">
+    <div class="card glance-card reveal spotlight-card">
+      <b data-target="2">2</b>
+      <span>Bins: wet and dry</span>
+    </div>
+    <div class="card glance-card reveal spotlight-card">
+      <b data-target="80" data-suffix="%">80%</b>
+      <span>Alert level</span>
+    </div>
+    <div class="card glance-card reveal spotlight-card">
+      <b data-target="3">3</b>
+      <span>LED colours</span>
+    </div>
+    <div class="card glance-card reveal spotlight-card">
+      <b data-target="1">1</b>
+      <span>Buzzer per bin</span>
+    </div>
+  </div>
+  <p class="callout reveal">
+    <span class="callout-icon" aria-hidden="true">💡</span>
+    <span><strong>Important:</strong> Sensors only detect <em>how full</em> a bin is. They do <strong>not</strong> detect the type of waste. Users must separate wet and dry waste by themselves.</span>
+  </p>
+</section>
+
+<!-- Dashboard Section -->
+<section id="dashboard">
+  <div class="section-header">
+    <span class="badge-pill reveal">Dashboard</span>
+    <h2 class="grad reveal">Try the bins<br>yourself</h2>
+    <p class="sub reveal">All readings are simulated. Move a slider or pick a demo scenario.</p>
+  </div>
+  
+  <div id="alerts" class="alerts reveal" role="status" aria-live="polite"></div>
+  
+  <div class="bento two" id="bins"></div>
+  
+  <div class="controls-wrap reveal">
+    <div class="controls-label">
+      <span>Simulate Scenarios:</span>
+    </div>
+    <div class="controls">
+      <button class="pill dark scenario-btn" data-s="0,0">All Empty</button>
+      <button class="pill dark scenario-btn" data-s="35,20">Normal Day</button>
+      <button class="pill dark scenario-btn" data-s="82,45">Wet Almost Full</button>
+      <button class="pill dark scenario-btn" data-s="55,90">Dry Almost Full</button>
+      <button class="pill dark scenario-btn" data-s="95,92">Both Full</button>
+      <button class="pill light" id="reset">Reset</button>
+      <button class="pill dark sound-btn" id="sound-btn" aria-label="Toggle buzzer audio" title="Toggle buzzer sound feedback">
+        <span class="sound-icon" aria-hidden="true">🔇</span>
+        <span class="sound-text">Sound: Off</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="status-legend reveal">
+    <div class="legend-item"><span class="legend-led g"></span><span>Below 50% = Normal (green LED)</span></div>
+    <div class="legend-separator">·</div>
+    <div class="legend-item"><span class="legend-led y"></span><span>50–79% = Filling (yellow LED)</span></div>
+    <div class="legend-separator">·</div>
+    <div class="legend-item"><span class="legend-led r"></span><span>80% and above = Full (red LED and buzzer)</span></div>
+  </div>
+</section>
+
+<!-- Workflow / How it works Section -->
+<section id="how">
+  <div class="section-header">
+    <span class="badge-pill reveal">Workflow</span>
+    <h2 class="grad reveal">How the system<br>works</h2>
+    <p class="sub reveal">A step-by-step ultrasonic detection and feedback pipeline.</p>
+  </div>
+  <div class="steps">
+    <div class="card step-card reveal spotlight-card">
+      <div class="step-num"><em>01</em></div>
+      <div class="step-dot" aria-hidden="true"></div>
+      <h3>Measure</h3>
+      <p>The HC-SR04 sensor under the lid sends sound waves down and times the echo.</p>
+    </div>
+    <div class="card step-card reveal spotlight-card">
+      <div class="step-num"><em>02</em></div>
+      <div class="step-dot" aria-hidden="true"></div>
+      <h3>Calculate</h3>
+      <p>The Arduino turns the echo time into distance. Shorter distance means a fuller bin.</p>
+    </div>
+    <div class="card step-card reveal spotlight-card">
+      <div class="step-num"><em>03</em></div>
+      <div class="step-dot" aria-hidden="true"></div>
+      <h3>Compare</h3>
+      <p>It checks the fill level against the 50% and 80% limits.</p>
+    </div>
+    <div class="card step-card reveal spotlight-card">
+      <div class="step-num"><em>04</em></div>
+      <div class="step-dot" aria-hidden="true"></div>
+      <h3>Signal</h3>
+      <p>A green, yellow or red LED lights up. At 80% the buzzer also sounds.</p>
+    </div>
+    <div class="card step-card reveal spotlight-card">
+      <div class="step-num"><em>05</em></div>
+      <div class="step-dot" aria-hidden="true"></div>
+      <h3>Act</h3>
+      <p>Staff see the red LED or hear the buzzer and empty the bin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Components Section -->
+<section id="components">
+  <div class="section-header">
+    <span class="badge-pill reveal">Build</span>
+    <h2 class="grad reveal">Components, limits<br>and next steps</h2>
+    <p class="sub reveal">Hardware breakdown, physical constraints, and the roadmap for campus scale.</p>
+  </div>
+  <div class="bento three">
+    <article class="card reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+      </div>
+      <h3>Components</h3>
+      <ul class="bullet-list">
+        <li><strong>Arduino Uno:</strong> the controller.</li>
+        <li><strong>HC-SR04 sensors (2):</strong> measure distance.</li>
+        <li><strong>LEDs:</strong> green, yellow, red status.</li>
+        <li><strong>Buzzer:</strong> sounds at 80% or more.</li>
+        <li><strong>Resistors, wires, breadboard, USB power.</strong></li>
+      </ul>
+    </article>
+    <article class="card reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      </div>
+      <h3>Limitations</h3>
+      <ul class="bullet-list">
+        <li>Cannot detect the type of waste.</li>
+        <li>Uneven piles can give a wrong reading.</li>
+        <li>Soft or angled items may reflect sound poorly.</li>
+        <li>No remote alerts yet.</li>
+        <li>This website uses simulated values only.</li>
+      </ul>
+    </article>
+    <article class="card reveal spotlight-card">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3>Future Improvements</h3>
+      <ul class="bullet-list">
+        <li>Add Wi-Fi (ESP8266 or ESP32) for a live dashboard.</li>
+        <li>Send SMS or app alerts.</li>
+        <li>Use more sensors per bin.</li>
+        <li>Add solar power for outdoor bins.</li>
+        <li>Plan cleaning routes from the data.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq">
+  <div class="section-header">
+    <span class="badge-pill reveal">FAQ</span>
+    <h2 class="grad reveal">Your questions<br>answered</h2>
+    <p class="sub reveal">Frequently asked questions about the sensor configuration and operational mechanics.</p>
+  </div>
+  <div class="faq reveal">
+    <details>
+      <summary>
+        <span>Does the system sort waste?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <p>No. It only measures fill level. People must put wet and dry waste in the correct bins.</p>
+    </details>
+    <details>
+      <summary>
+        <span>Is the data on this site real?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <p>No. All readings are simulated to demonstrate the idea.</p>
+    </details>
+    <details>
+      <summary>
+        <span>Why use an ultrasonic sensor?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <p>It is cheap, easy to use with Arduino, and measures distance without touching the waste.</p>
+    </details>
+    <details>
+      <summary>
+        <span>What happens at 80%?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <p>The red LED turns on, the buzzer sounds and the dashboard shows an alert.</p>
+    </details>
+  </div>
+</section>
+
+<!-- References Section -->
+<section id="references">
+  <div class="section-header">
+    <span class="badge-pill reveal">Sources</span>
+    <h2 class="grad reveal">References</h2>
+  </div>
+  <ol class="refs reveal">
+    <li>Kaza, S., Yao, L., Bhada-Tata, P., Van Woerden, F. (2018). <em>What a Waste 2.0: A Global Snapshot of Solid Waste Management to 2050.</em> World Bank. <a href="https://openknowledge.worldbank.org/handle/10986/30317" target="_blank" rel="noopener">openknowledge.worldbank.org <svg class="ext-link-ic" viewBox="0 0 12 12" width="10" height="10"><path d="M3.5 1.5H10.5V8.5M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a></li>
+    <li>Ministry of Environment, Forest and Climate Change, Government of India. <em>Solid Waste Management Rules, 2016.</em> <a href="https://cpcb.nic.in/" target="_blank" rel="noopener">cpcb.nic.in <svg class="ext-link-ic" viewBox="0 0 12 12" width="10" height="10"><path d="M3.5 1.5H10.5V8.5M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a></li>
+    <li>Arduino. <em>Arduino Documentation.</em> <a href="https://docs.arduino.cc/" target="_blank" rel="noopener">docs.arduino.cc <svg class="ext-link-ic" viewBox="0 0 12 12" width="10" height="10"><path d="M3.5 1.5H10.5V8.5M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a></li>
+    <li>Elec Freaks. <em>HC-SR04 Ultrasonic Ranging Module datasheet.</em></li>
+  </ol>
+</section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-meta">Campus CleanTrack – Design Thinking Project (AR113) · B.Tech AIML, Section I · 2026-27</p>
+    <div class="big" aria-hidden="true">CleanTrack</div>
+    <p class="name">Made by Dhruv Lamba · Roll No. 27</p>
+    <div class="footer-back-to-top">
+      <a href="#home" class="back-to-top-btn" aria-label="Back to top">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 12V4M4 8L8 4L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to Top</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
